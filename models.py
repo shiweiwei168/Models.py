@@ -4,7 +4,7 @@ from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 
 
-class admin(UserMixin, db.Model):
+class Admin(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), index=True, unique=True)
     email = db.Column(db.String(120), index=True, unique=True)
@@ -14,7 +14,7 @@ class admin(UserMixin, db.Model):
     usertype =db.Column(db.Integer)
 
     def __repr__(self):
-        return '<admin {}>'.format(self.username)
+        return '<Admin {}>'.format(self.username)
 
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
@@ -25,7 +25,7 @@ class admin(UserMixin, db.Model):
 
 @login.user_loader
 def load_user(id):
-    return admin.query.get(int(id))
+    return Admin.query.get(int(id))
 
 
 class Customer(db.Model):
